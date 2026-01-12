@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Home Energy Monitor - Real-time energy consumption tracking and device management">
+    <title>EnergyPro - Smart Home Energy Monitor</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <h1 class="logo-text">EnergyPro</h1>
+            </div>
+
+            <nav class="nav-menu">
+                <button class="nav-btn active">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Dashboard</span>
+                </button>
+                <button class="nav-btn">
+                    <span class="nav-icon">🔌</span>
+                    <span class="nav-text">Devices</span>
+                </button>
+                <button class="nav-btn">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Analytics</span>
+                </button>
+                <button class="nav-btn">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Settings</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="active-devices-section">
+                    <h3 class="section-title">ACTIVE DEVICES</h3>
+                    <div id="sidebarDeviceList" class="sidebar-device-list"></div>
+                </div>
+
+                <div class="time-display">
+                    <div id="currentTime" class="current-time">00:00:00</div>
+                    <div id="currentDate" class="current-date">Loading...</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="page-header">
+                <h2 class="page-title">Energy Dashboard</h2>
+                
+                <div class="time-range-selector">
+                    <button class="time-btn active" data-range="24h">24H</button>
+                    <button class="time-btn" data-range="7d">Week</button>
+                    <button class="time-btn" data-range="30d">Month</button>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3 class="stat-title">Current Power</h3>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-icon">⚡</span>
+                        <div class="stat-value-group">
+                            <span id="currentPower" class="stat-value">0</span>
+                            <span class="stat-unit">W</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3 class="stat-title">Today's Usage</h3>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-icon">📊</span>
+                        <div class="stat-value-group">
+                            <span id="todayUsage" class="stat-value">0.0</span>
+                            <span class="stat-unit">kWh</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h3 class="stat-title">Estimated Cost</h3>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-icon">💰</span>
+                        <div class="stat-value-group">
+                            <span id="estimatedCost" class="stat-value">$0.00</span>
+                            <span class="stat-unit">today</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chart Section -->
+            <section class="chart-section">
+                <h3 class="section-title">ENERGY CONSUMPTION</h3>
+                <div class="chart-container">
+                    <canvas id="energyChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Device Status -->
+            <section class="device-section">
+                <h3 class="section-title">DEVICE STATUS</h3>
+                <div id="deviceGrid" class="device-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
