@@ -82,6 +82,7 @@ This application is **production-ready** and optimized for deployment on Render:
 1. Push your code to GitHub
 2. Connect to Render using the included `render.yaml`
 3. Your app goes live automatically!
+4. link:- https://smart-energy-monitor.onrender.com
 
 See **[DEPLOYMENT.md](DEPLOYMENT.md)** for detailed instructions.
 
