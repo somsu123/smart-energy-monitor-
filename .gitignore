@@ -23,6 +23,16 @@ desktop.ini
 # Git files
 .git/
 
+# Node.js
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment files
+.env
+.env.local
+.env.production
+
 # Logs and temporary files
 *.log
 npm-debug.log*

@@ -77,7 +77,7 @@ class EnergyMonitor {
     // Initialize Chart.js
     initChart() {
         const ctx = document.getElementById('energyChart').getContext('2d');
-        
+
         this.chart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -165,7 +165,7 @@ class EnergyMonitor {
 
         if (this.currentRange === '24h') {
             // Last 24 hours - show hourly data
-            const last24h = this.energyData.filter(d => 
+            const last24h = this.energyData.filter(d =>
                 (now - d.timestamp) <= 24 * 60 * 60 * 1000
             );
 
@@ -209,31 +209,31 @@ class EnergyMonitor {
     aggregateByDay(days) {
         const now = new Date();
         const result = [];
-        
+
         for (let i = days - 1; i >= 0; i--) {
             const date = new Date(now);
             date.setDate(date.getDate() - i);
             date.setHours(0, 0, 0, 0);
-            
+
             const nextDate = new Date(date);
             nextDate.setDate(nextDate.getDate() + 1);
-            
-            const dayData = this.energyData.filter(d => 
+
+            const dayData = this.energyData.filter(d =>
                 d.timestamp >= date && d.timestamp < nextDate
             );
-            
-            const totalEnergy = dayData.reduce((sum, d) => 
+
+            const totalEnergy = dayData.reduce((sum, d) =>
                 sum + (d.power * 5 / 3600), 0 // Convert to kWh (assuming 5-second intervals)
             );
-            
+
             const dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getDay()];
-            
+
             result.push({
                 label: dayName,
                 value: totalEnergy
             });
         }
-        
+
         return result;
     }
 
@@ -241,14 +241,14 @@ class EnergyMonitor {
     aggregateByWeek(days) {
         const result = [];
         const weeksCount = Math.ceil(days / 7);
-        
+
         for (let i = 0; i < weeksCount; i++) {
             result.push({
                 label: `Week ${i + 1}`,
                 value: Math.random() * 50 + 10 // Simulated weekly data
             });
         }
-        
+
         return result;
     }
 
@@ -274,7 +274,7 @@ class EnergyMonitor {
         }, 0);
 
         // Calculate today's usage
-        const todayUsage = this.energyData.reduce((sum, d) => 
+        const todayUsage = this.energyData.reduce((sum, d) =>
             sum + (d.power * 5 / 3600), 0 // Convert W to kWh
         );
 
@@ -295,7 +295,7 @@ class EnergyMonitor {
         this.devices.forEach(device => {
             const card = document.createElement('div');
             card.className = `device-card ${device.isOn ? 'active' : ''}`;
-            
+
             card.innerHTML = `
                 <div class="device-header">
                     <span class="device-icon">${device.icon}</span>
@@ -322,7 +322,7 @@ class EnergyMonitor {
         list.innerHTML = '';
 
         const activeDevices = this.devices.filter(d => d.isOn);
-        
+
         if (activeDevices.length === 0) {
             list.innerHTML = '<div class="sidebar-device-item">No active devices</div>';
             return;
@@ -365,9 +365,14 @@ class EnergyMonitor {
                 cost: (totalPower / 1000) * this.costPerKwh
             });
 
-            // Keep only last 24 hours of data
+            // Keep only last 24 hours of data to optimize memory
             const cutoff = new Date(now.getTime() - 24 * 60 * 60 * 1000);
             this.energyData = this.energyData.filter(d => d.timestamp > cutoff);
+
+            // Limit maximum data points to 1000 for performance
+            if (this.energyData.length > 1000) {
+                this.energyData = this.energyData.slice(-1000);
+            }
 
             // Update UI
             this.updateUI();
@@ -377,14 +382,14 @@ class EnergyMonitor {
     // Update time display
     updateTimeDisplay() {
         const now = new Date();
-        
+
         const timeString = now.toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',
             hour12: false
         });
-        
+
         const dateString = now.toLocaleDateString('en-US', {
             weekday: 'long',
             year: 'numeric',

@@ -46,20 +46,44 @@ A beautiful, real-time web application for monitoring and managing your home's e
    cd smart-energy-monitor
    ```
 
-2. **Open in browser**
-   - Simply open `index.html` in your web browser
-   - Or use a local server (recommended):
-     ```bash
-     # Using Python 3
-     python -m http.server 8000
-     
-     # Using Node.js
-     npx serve
-     ```
+2. **Install dependencies** (for production deployment)
+   ```bash
+   npm install
+   ```
 
-3. **Access the application**
-   - Open your browser to `http://localhost:8000`
-   - Start monitoring your energy usage!
+3. **Run the application**
+   
+   **Development/Production Server (Recommended):**
+   ```bash
+   npm start
+   ```
+   Then open `http://localhost:3000` in your browser.
+   
+   **Alternative - Direct File Access:**
+   - Simply open `index.html` in your web browser
+   - Or use Python: `python -m http.server 8000`
+
+4. **Deploy to Production**
+   - See [DEPLOYMENT.md](DEPLOYMENT.md) for complete deployment guide to Render
+   - Includes automatic setup, monitoring, and troubleshooting
+
+## 🌐 Production Deployment
+
+This application is **production-ready** and optimized for deployment on Render:
+
+✅ **Express.js server** with compression and caching  
+✅ **Performance optimized** with resource hints and deferred loading  
+✅ **Memory efficient** with automatic data management  
+✅ **Security headers** including CSP and XSS protection  
+✅ **Health monitoring** endpoint at `/health`  
+✅ **Auto-deploy** from GitHub  
+
+**Quick Deploy to Render:**
+1. Push your code to GitHub
+2. Connect to Render using the included `render.yaml`
+3. Your app goes live automatically!
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for detailed instructions.
 
 ## 📁 Project Structure
 
